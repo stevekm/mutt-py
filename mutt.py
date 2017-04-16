@@ -65,8 +65,6 @@ def mutt_mail(recipient_list, reply_to, subject_line, message, attachment_files)
     '''
     Send the message with mutt
     '''
-    print(attachment_files)
-    print(type(attachment_files)
     attachment_string = make_attachement_string(attachment_files)
     command = '''
 export EMAIL="{0}"
@@ -76,7 +74,7 @@ mutt -s "{1}" {2} -- "{3}" <<E0F
 E0F'''.format(reply_to, subject_line, attachment_string, recipient_list, message)
     print('Email command is:\n{0}\n'.format(command))
     print('Running command...')
-    # subprocess_cmd(command)
+    subprocess_cmd(command)
 
 
 
