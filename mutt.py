@@ -3,8 +3,9 @@
 '''
 This script provides a flexible wrapper for mailing files from a remote server with mutt
 
-example system command:
+USAGE: mutt.py -s "Subject line" -r "address1@gmail.com, address2@gmail.com" -rt "my.address@internets.com" -m "This is my email message" /path/to/attachment1.txt /path/to/attahment2.txt
 
+example mutt command which will be created:
 # reply-to field; PUT YOUR EMAIL HERE
 export EMAIL="kellys04@nyumc.org"
 recipient_list="address1@gmail.com, address2@gmail.com"
@@ -21,23 +22,6 @@ import subprocess as sp
 import argparse
 
 # ~~~~ CUSTOM FUNCTIONS ~~~~~~ #
-def my_debugger(vars):
-    '''
-    starts interactive Python terminal at location in script
-    very handy for debugging
-    call this function with
-    my_debugger(globals().copy())
-    anywhere in the body of the script, or
-    my_debugger(locals().copy())
-    within a script function
-    '''
-    import readline # optional, will allow Up/Down/History in the console
-    import code
-    # vars = globals().copy() # in python "global" variables are actually module-level
-    vars.update(locals())
-    shell = code.InteractiveConsole(vars)
-    shell.interact()
-
 def subprocess_cmd(command):
     '''
     Runs a terminal command with stdout piping enabled
@@ -71,9 +55,9 @@ export EMAIL="{0}"
 
 mutt -s "{1}" {2} -- "{3}" <<E0F
 {4}
-E0F'''.format(reply_to, subject_line, attachment_string, recipient_list, message)
+E0F'''.format(reply_to, subject_line, attachment_string, recipient_list, message) # message.replace('\n', "$'\n'")
     print('Email command is:\n{0}\n'.format(command))
-    print('Running command...')
+    print('Running command, sending email...')
     subprocess_cmd(command)
 
 
